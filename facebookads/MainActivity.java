@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
 import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSettings;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
 import com.facebook.ads.InterstitialAd;
@@ -31,10 +33,28 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,NativeAdsActivity.class));
+                if(interstitialAd.isAdLoaded()){
+                    interstitialAd.show();
+                }else {
+                    Toast.makeText(MainActivity.this, "Not Loaded yet.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),NativeInActivity.class));
+            }
+        });
+
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),NativeOnBackActivity.class));
+            }
+        });
+        AdSettings.addTestDevice("3f4178ce-9554-4801-a5fe-18c0ffa8e094");
         setUpBannerAds();
 
         interstitialAd = new InterstitialAd(this,"YOUR_PLACEMENT_ID");
@@ -47,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onInterstitialDismissed(Ad ad) {
                 Log.i(TAG, "onInterstitialDismissed: Interstitial");
+                startActivity(new Intent(MainActivity.this,NativeOnBackActivity.class));
             }
 
             @Override
@@ -72,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         interstitialAd.loadAd();
 
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             public void run() {
                 // Check if interstitialAd has been loaded successfully
                 if(interstitialAd == null || !interstitialAd.isAdLoaded()) {
@@ -85,11 +106,12 @@ public class MainActivity extends AppCompatActivity {
                 // Show the ad
                 interstitialAd.show();
             }
-        }, 1000 * 60 * 3);
+        }, 1000 * 60 * 3);*/
 
     }
 
     private void setUpBannerAds() {
+        //349632789123307_349633695789883
         adView = new AdView(this,"YOUR_PLACEMENT_ID",AdSize.BANNER_HEIGHT_50);
         adLayout = findViewById(R.id.adContainerLayoutID);
         adLayout.addView(adView);
