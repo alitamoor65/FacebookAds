@@ -13,7 +13,7 @@ dependencies {
   compile 'com.facebook.android:audience-network-sdk:5.+'
 }
 ```
-###Step 1: Adding a Layout Container for the Banner Ad
+### Step 1: Adding a Layout Container for the Banner Ad
 ```
      <LinearLayout
         android:id="@+id/banner_container"
@@ -23,7 +23,7 @@ dependencies {
         android:orientation="vertical"
         />
 ```
-###Step 2: Implementing the Banner in your Activity
+### Step 2: Implementing the Banner in your Activity
 ```
   private AdView adView = new AdView(this, "YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
 
@@ -46,7 +46,7 @@ protected void onDestroy() {
   super.onDestroy();
 }
 ```
-###Step 3: Adding an Ad Listener
+### Step 3: Adding an Ad Listener
 ```
     adView.setAdListener(new AdListener() {
       @Override
